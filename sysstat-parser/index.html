@@ -1,0 +1,101 @@
+<html>
+  <head>
+    <title>Linux Performance Log Parser</title>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js@3.8.0/dist/chart.min.js"></script>
+    <script defer src="main.js"></script>
+    <style>
+      body {
+        font-family: Verdana, Geneva, Tahoma, sans-serif;
+      }
+
+      #upload_button {
+        display: none;
+      }
+
+      #logfile_data_section, #logfile_chart_section, #logfile_split_section, #logfile_minisplit_section {
+        display: none;
+      }
+
+      #chart_container {
+        height: 500px;
+        margin-top: 10px;
+      }
+
+      .split_chart_container {
+        height: 120px;
+        margin-top: 0px;
+      }
+
+      .minisplit_chart_container {
+        margin-top: 0px;
+      }
+    </style>
+  </head>
+  <body>
+
+    <div id="upload_form_section">
+      <h2 data-test-value="something">Add Log Files</h2>
+      <form id="upload_form" action="/upload" method="post" enctype="multipart/form-data">
+        <input type="file" name="logfile" accept=".json,.csv,.yml" multiple /><br /><br />
+        <input id="upload_button" type="button" value="Upload" />
+        <input id="local_button" type="button" value="Parse Log(s)" />
+        <input id="reset_saved_data" type="button" value="Reset Saved Data" />
+      </form>
+      <hr />
+    </div>
+
+    <div id="logfile_data_section">
+      <h2>Log File Data</h2>
+      <label for="selected_log"><b>Selected Log File:</b></label>
+      <select id="selected_log">
+        <option value="">Choose File</option>
+      </select>
+      <input id="delete_selected_data" type="button" value="Delete" />
+      <br />&nbsp;<br />
+      <div>
+        <b>Name: </b><span id="log_nodename">Unknown</span><br />
+        <b>Date: </b><span id="log_date">Unknown</span><br />
+        <b>System: </b><span id="log_sysname">Unknown</span>
+        <span id="log_machine">Unknown</span>
+        <span id="log_release">Unknown</span><br />
+        <b>CPU Count: </b><span id="log_cpus">Unknown</span><br />
+        <b>Number of Entries: </b><span id="log_entry_count">Unknown</span><br /><br />
+        <input id="export_csv_button" type="button" value="Export as CSV" />
+        <input id="hide_tooltip_button" type="button" value="Hide Tooltips" /><br />&nbsp;<br />
+        <input id="show_chart_button" type="button" value="Show Line Chart" />
+        <input id="show_split_button" type="button" value="Show Split Chart" />
+        <input id="show_minisplit_button" type="button" value="Show Mini Split Chart" /><br />
+      </div>
+      <br />
+      <hr />
+    </div>
+
+    <div id="logfile_chart_section">
+      <h2>Line Chart</h2>
+      <div id="chart_container">
+        <b>Start: </b><span id="start_date">Unknown</span><br />
+        <b>End: </b><span id="end_date">Unknown</span><br />
+        <canvas id="log_chart" width="400" height="600"></canvas>
+      </div>
+    </div>
+
+    <div id="logfile_split_section">
+      <h2>Split Chart</h2>
+      <div id="split_container">
+        <b>Start: </b><span id="split_start_date">Unknown</span><br />
+        <b>End: </b><span id="split_end_date">Unknown</span><br />
+        <div id="split_chart"></div>
+      </div>
+    </div>
+
+    <div id="logfile_minisplit_section">
+      <h2>Mini Split Chart</h2>
+      <div id="minisplit_container">
+        <b>Start: </b><span id="minisplit_start_date">Unknown</span><br />
+        <b>End: </b><span id="minisplit_end_date">Unknown</span><br />
+        <div id="minisplit_chart"></div>
+      </div>
+    </div>
+
+  </body>
+</html>
